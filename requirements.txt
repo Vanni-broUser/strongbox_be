@@ -1,2 +1,5 @@
 SQLAlchemy
 alembic
+flask_cors
+flake8
+python-dotenv

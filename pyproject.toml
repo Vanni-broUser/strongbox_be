@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "Strongbox"
+version = "0.1.0"
+description = ""
+authors = ["Vanni"]
+
+[tool.poetry.dependencies]
+python = ">=3.10.0,<3.11"
+flask = "^3.0.0"
+flask-cors = "^4.0.0"
+python-dotenv = "^1.0.0"
+SQLAlchemy = "^2.0.25"
+
+[tool.pyright]
+useLibraryCodeForTypes = true
+exclude = [".cache"]
+
+[tool.ruff]
+select = ['E', 'W', 'F', 'I', 'B', 'C4', 'ARG', 'SIM']
+ignore = ['W291', 'W292', 'W293']
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
