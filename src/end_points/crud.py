@@ -13,7 +13,7 @@ def allowed_classes_control(func):
     if class_name in ALLOWED_CLASSES:
       return func(globals().get(class_name), *args)
     else:
-      return None, {'error': f'Class {class_name} not allowed'}, 400
+      return {'error': f'Class {class_name} not allowed'}, 400
 
   return wrapper
 
@@ -21,7 +21,7 @@ def allowed_classes_control(func):
 @error_catching_decorator
 @allowed_classes_control
 def create_instance_(class_type, data):
-  return create(class_type, data['params']), None, 201
+  return create(class_type, data['params']).to_dict(), 201
 
 
 @error_catching_decorator
@@ -29,9 +29,9 @@ def create_instance_(class_type, data):
 def update_instance_(class_type, instance_id, update_params):
   instance = get_by_id(class_type, instance_id)
   if instance is None:
-    return None, {'error': f'{class_type.__name__} with id {instance_id} not found'}, 404
+    return {'error': f'{class_type.__name__} with id {instance_id} not found'}, 404
 
-  return update(instance, update_params), None, 200
+  return update(instance, update_params).to_dict(), 200
 
 
 @error_catching_decorator
@@ -39,10 +39,10 @@ def update_instance_(class_type, instance_id, update_params):
 def delete_instance_(class_type, instance_id):
   instance = get_by_id(class_type, instance_id)
   if instance is None:
-    return None, {'error': f'{class_type.__name__} with id {instance_id} not found'}, 404
+    return {'error': f'{class_type.__name__} with id {instance_id} not found'}, 404
 
   delete(instance)
-  return {'message': f'{class_type.__name__} with id {instance_id} deleted successfully'}, None, 200
+  return {'message': f'{class_type.__name__} with id {instance_id} deleted successfully'}, 200
 
 
 @error_catching_decorator
@@ -50,6 +50,6 @@ def delete_instance_(class_type, instance_id):
 def get_instance_by_id_(class_type, instance_id):
   instance = get_by_id(class_type, instance_id)
   if instance is None:
-    return None, {'error': f'{class_type.__name__} with id {instance_id} not found'}, 404
+    return {'error': f'{class_type.__name__} with id {instance_id} not found'}, 404
 
-  return instance, None, 200
+  return instance.to_dict(), 200

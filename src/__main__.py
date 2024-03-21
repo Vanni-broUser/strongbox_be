@@ -9,6 +9,7 @@ from .end_points.crud import (
   delete_instance_,
   get_instance_by_id_
 )
+from .end_points.notes import get_notes_
 
 
 app = Flask(__name__)
@@ -18,33 +19,33 @@ app = Flask(__name__)
 
 @app.route('/instances/<string:class_name>', methods=['POST'])
 def create_instance(class_name):
-  instance, error, status_code = create_instance_(class_name, request.json)
-  if error:
-    return jsonify(error), status_code
-  return jsonify(instance.serialize()), status_code
+  response, status_code = create_instance_(class_name, request.json)
+  return jsonify(response), status_code
 
 
 @app.route('/instances/<string:class_name>/<int:instance_id>', methods=['GET'])
 def get_instance_by_id(class_name, instance_id):
-  instance, error, status_code = get_instance_by_id_(class_name, instance_id)
-  if error:
-    return jsonify(error), status_code
-  return jsonify(instance.serialize()), status_code
+  response, status_code = get_instance_by_id_(class_name, instance_id)
+  return jsonify(response), status_code
 
 
 @app.route('/instances/<string:class_name>/<int:instance_id>', methods=['PATCH'])
 def update_instance(class_name, instance_id):
-  instance, error, status_code = update_instance_(class_name, instance_id, request.json)
-  if error:
-    return jsonify(error), status_code
-  return jsonify(instance.serialize()), status_code
+  response, status_code = update_instance_(class_name, instance_id, request.json)
+  return jsonify(response), status_code
 
 
 @app.route('/instances/<string:class_name>/<int:instance_id>', methods=['DELETE'])
 def delete_instance(class_name, instance_id):
-  response, error, status_code = delete_instance_(class_name, instance_id)
-  if error:
-    return jsonify(error), status_code
+  response, status_code = delete_instance_(class_name, instance_id)
+  return jsonify(response), status_code
+
+
+# Notes
+
+@app.route('/notes', methods=['GET'])
+def get_notes():
+  response, status_code = get_notes_()
   return jsonify(response), status_code
 
 

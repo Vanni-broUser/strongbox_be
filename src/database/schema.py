@@ -12,7 +12,7 @@ class BaseEntity(Base):
   created_at = Column(DateTime(timezone=True), default=func.now())
   updated_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
 
-  def serialize(self):
+  def to_dict(self):
     dict_obj = {}
     for attribute in self.__dict__:
       if getattr(self, attribute) is not None and attribute != '_sa_instance_state':
@@ -20,7 +20,7 @@ class BaseEntity(Base):
     return dict_obj
 
   def __repr__(self):
-    attributes = [f'{attr}: {getattr(self, attr)}' for attr in self.serialize()]
+    attributes = [f'{attr}: {getattr(self, attr)}' for attr in self.to_dict()]
     return f"{self.__class__.__name__} {{{', '.join(attributes)}}}"
 
 

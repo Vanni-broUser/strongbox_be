@@ -8,7 +8,7 @@ def error_catching_decorator(func):
       return func(*args)
     except Exception:
       traceback.print_exc()
-    return None, {'error': 'Qualcosa è andato storto'}, 500
+      return {'error': 'Qualcosa è andato storto'}, 500
 
   # Serve davvero?
   wrapper.__name__ = func.__name__
