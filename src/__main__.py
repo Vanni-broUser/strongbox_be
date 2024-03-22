@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 from .costants import DATABASE_URL
 from .database import set_database
@@ -13,6 +14,7 @@ from .end_points.notes import get_notes_
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 # CRUD
