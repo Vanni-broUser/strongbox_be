@@ -1,5 +1,5 @@
 from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, Text, Integer, String, DateTime, func
+from sqlalchemy import Column, Text, Integer, String, DateTime, Boolean, func
 
 
 Base = declarative_base()
@@ -29,3 +29,5 @@ class Note(BaseEntity):
 
   content = Column(Text)
   title = Column(String, nullable=False)
+  datetime = Column(DateTime(timezone=True))
+  main = Column(Boolean, nullable=False, default=False)
