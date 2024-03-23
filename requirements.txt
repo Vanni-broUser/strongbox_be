@@ -3,3 +3,4 @@ alembic
 flask_cors
 flake8
 python-dotenv
+psycopg2

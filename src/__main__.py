@@ -47,7 +47,7 @@ def delete_instance(class_name, instance_id):
 
 @app.route('/notes', methods=['GET'])
 def get_notes():
-  response, status_code = get_notes_()
+  response, status_code = get_notes_(request.args)
   return jsonify(response), status_code
 
 
