@@ -31,3 +31,5 @@ class Note(BaseEntity):
   title = Column(String, nullable=False)
   datetime = Column(DateTime(timezone=True))
   main = Column(Boolean, nullable=False, default=False)
+  daily = Column(Boolean, nullable=False, default=False)
+  completed = Column(Boolean, nullable=False, default=False)

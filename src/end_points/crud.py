@@ -26,12 +26,12 @@ def create_instance_(class_type, data):
 
 @error_catching_decorator
 @allowed_classes_control
-def update_instance_(class_type, instance_id, update_params):
+def update_instance_(class_type, instance_id, data):
   instance = get_by_id(class_type, instance_id)
   if instance is None:
     return {'error': f'{class_type.__name__} with id {instance_id} not found'}, 404
 
-  return update(instance, update_params).to_dict(), 200
+  return update(instance, data['params']).to_dict(), 200
 
 
 @error_catching_decorator

@@ -9,7 +9,9 @@ from .decorators import error_catching_decorator
 
 def notes_query(args) -> list[Note]:
   with Session() as session:
-    query = session.query(Note)
+    query = session.query(Note).filter(
+      Note.completed == False
+    )
     if 'main' in args:
       query = query.filter(
         Note.main == args['main']
