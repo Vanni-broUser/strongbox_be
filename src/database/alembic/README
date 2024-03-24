@@ -1,0 +1,46 @@
+> Generic single-database configuration.
+
+# Configurazione e prima migrazione
+
+Si presuppone che siano stati realizzati i modelli in un file `.py` specificando la classe base di SQLAlchemy dal quale tutti loro ereditano le proprietà e di aver configurato il file `alembic_migrations/env.py` per leggere i metadati di tale classe.
+
+Si suppone anche che il meccanismo di connessione al database SQLAlchemy funzioni correttamente.
+
+> La classe base (`schema.Base`) e i modelli sono attualmente dichiarati in `hera/schema.py`; Inoltre, `env.py` è configurato in modo che legga `schema.Base.metadata`.
+
+A questo punto è possibile generare automaticamente la prima migrazione, che consiste nella creazione delle rispettive
+tabelle;
+Posizionarsi sulla root del progetto ed eseguire il comando:
+
+```bash
+alembic revision --autogenerate -m 'Creazione modelli utente'
+```
+
+Dove `-m` seguito da una stringa corrisponde al nome della migrazione, anche se in realtà
+ad ogni migrazione viene associato un codice alfanumerico univoco.
+Se l'operazione va a buon fine, viene generato un file `.py` relativo alla migrazione che sarà collocato in `alembic_migrations/versions`.
+il nome del file ha la forma:
+```text
+<codice-alfanumerico>_creazione_modelli_utente.py
+```
+A questo punto è possibile correggere eventuali imprecisioni nelle query come suggerito dai commenti presenti nel file.
+
+Terminati i ritocchi, applicare la migrazione attraverso il comando:
+
+```bash
+alembic upgrade heads
+```
+
+# Migrazioni successive
+Modificare `schema.py` laddove e quando ritenuto necessario, poi eseguire il comando
+```bash
+alembic revision --autogenerate -m 'nome migrazione'
+```
+per generare il file `.py` associato alla migrazione che si vuole effettuare e quando si è pronti, eseguire il comando:
+```bash
+alembic upgrade heads
+```
+o `nome_migrazione.py` al posto di `heads`.
+
+# Fonti
+- [Setting up Alembic with SQLAlchemy (YouTube)](https://www.youtube.com/watch?v=nt5sSr1A_qw)

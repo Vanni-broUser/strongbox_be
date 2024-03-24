@@ -10,7 +10,7 @@ from .decorators import error_catching_decorator
 def notes_query(args) -> list[Note]:
   with Session() as session:
     query = session.query(Note).filter(
-      Note.completed == False
+      Note.completed == ('completed' in args and args['completed'])
     )
     if 'main' in args:
       query = query.filter(
@@ -26,8 +26,8 @@ def notes_query(args) -> list[Note]:
       end = datetime.strptime(args['end'], '%Y-%m-%d')
       query = query.filter(
         and_(
-          Note.datetime > start,
-          Note.datetime < end
+          func.date(Note.datetime) > start.date(),
+          func.date(Note.datetime) < end.date(),
         )
       )
     return query.all()

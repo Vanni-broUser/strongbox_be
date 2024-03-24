@@ -1,4 +1,4 @@
-from src.__main__  import app
+from src.__main__ import app
 
 from . import StrongboxTest
 
@@ -6,13 +6,18 @@ from . import StrongboxTest
 # Rendi parametrico questo test per tutte le classi in ALLOWED_CLASSES
 class CrudTes(StrongboxTest):
 
-
     def setUp(self):
         self.app = app.test_client()
-        self.app.post('/instances/Note', json={'params': {'title': 'Test Note', 'content': 'Test Content'}})
+        self.app.post('/instances/Note', json={'params': {
+            'title': 'Test Note',
+            'content': 'Test Content'
+        }})
 
     def test_create_instance(self):
-        response = self.app.post('/instances/Note', json={'params': {'title': 'Test Note', 'content': 'Test Content'}})
+        response = self.app.post('/instances/Note', json={'params': {
+            'title': 'Test Note',
+            'content': 'Test Content'
+        }})
         data = response.get_json()
         self.assertEqual(response.status_code, 201)
         self.assertIn('title', data)

@@ -1,5 +1,5 @@
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, Text, Integer, String, DateTime, Boolean, func
+from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy import Column, Text, Integer, String, DateTime, Boolean, ForeignKey, func
 
 
 Base = declarative_base()
@@ -21,7 +21,7 @@ class BaseEntity(Base):
 
   def __repr__(self):
     attributes = [f'{attr}: {getattr(self, attr)}' for attr in self.to_dict()]
-    return f"{self.__class__.__name__} {{{', '.join(attributes)}}}"
+    return f'{self.__class__.__name__} {{{", ".join(attributes)}}}'
 
 
 class Note(BaseEntity):
@@ -33,3 +33,16 @@ class Note(BaseEntity):
   main = Column(Boolean, nullable=False, default=False)
   daily = Column(Boolean, nullable=False, default=False)
   completed = Column(Boolean, nullable=False, default=False)
+  user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+
+  user = relationship('User', back_populates='note')
+
+
+class User(BaseEntity):
+  __tablename__ = 'user'
+
+  password = Column(String)
+  pass_token = Column(String)
+  mail = Column(String, nullable=False)
+
+  note = relationship('Note', back_populates='user')

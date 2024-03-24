@@ -11,10 +11,17 @@ from .end_points.crud import (
   get_instance_by_id_
 )
 from .end_points.notes import get_notes_
+from .end_points.users import (
+  register_user_,
+  login_,
+  ask_change_password_,
+  change_password_
+)
 
 
 app = Flask(__name__)
 CORS(app)
+session_data = {}
 
 
 # CRUD
@@ -51,6 +58,32 @@ def get_notes():
   return jsonify(response), status_code
 
 
+# Users
+
+@app.route('/register-user', methods=['POST'])
+def register_user():
+  response, status_code = register_user_(request.json)
+  return jsonify(response), status_code
+
+
+@app.route('/login', methods=['POST'])
+def login():
+  response, status_code = login_(request.json, session_data)
+  return jsonify(response), status_code
+
+
+@app.route('/ask-change-password', methods=['POST'])
+def ask_change_password():
+  response, status_code = ask_change_password_(request.json)
+  return jsonify(response), status_code
+
+
+@app.route('/change-password', methods=['POST'])
+def change_password():
+  response, status_code = change_password_(request.json)
+  return jsonify(response), status_code
+
+
 if __name__ == '__main__':
-  set_database(DATABASE_URL)
+  set_database('postgresql://neondb_owner:jKnw6WuPC7IE@ep-square-frog-a5scr8j0.us-east-2.aws.neon.tech/neondb')
   app.run(host='0.0.0.0', port=8080)

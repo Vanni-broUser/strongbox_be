@@ -19,7 +19,7 @@ def set_database(url):
 @contextmanager
 def Session():
   if engine is None:
-    raise Exception("Database engine not initialized")
+    raise Exception('Database engine not initialized')
   session = sessionmaker(bind=engine)()
   try:
     yield session
