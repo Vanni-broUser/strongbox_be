@@ -4,27 +4,18 @@ from flask_cors import CORS
 from .costants import DATABASE_URL
 from .database import set_database
 
-from .end_points.crud import (
-  create_instance_,
-  update_instance_,
-  delete_instance_,
-  get_instance_by_id_
-)
+from .end_points.crud import (create_instance_, update_instance_,
+                              delete_instance_, get_instance_by_id_)
 from .end_points.notes import get_notes_
-from .end_points.users import (
-  register_user_,
-  login_,
-  ask_change_password_,
-  change_password_
-)
-
+from .end_points.users import (register_user_, login_, ask_change_password_,
+                               change_password_)
 
 app = Flask(__name__)
 CORS(app)
 session_data = {}
 
-
 # CRUD
+
 
 @app.route('/instances/<string:class_name>', methods=['POST'])
 def create_instance(class_name):
@@ -38,19 +29,23 @@ def get_instance_by_id(class_name, instance_id):
   return jsonify(response), status_code
 
 
-@app.route('/instances/<string:class_name>/<int:instance_id>', methods=['PATCH'])
+@app.route('/instances/<string:class_name>/<int:instance_id>',
+           methods=['PATCH'])
 def update_instance(class_name, instance_id):
-  response, status_code = update_instance_(class_name, instance_id, request.json)
+  response, status_code = update_instance_(class_name, instance_id,
+                                           request.json)
   return jsonify(response), status_code
 
 
-@app.route('/instances/<string:class_name>/<int:instance_id>', methods=['DELETE'])
+@app.route('/instances/<string:class_name>/<int:instance_id>',
+           methods=['DELETE'])
 def delete_instance(class_name, instance_id):
   response, status_code = delete_instance_(class_name, instance_id)
   return jsonify(response), status_code
 
 
 # Notes
+
 
 @app.route('/notes', methods=['GET'])
 def get_notes():
@@ -59,6 +54,7 @@ def get_notes():
 
 
 # Users
+
 
 @app.route('/register-user', methods=['POST'])
 def register_user():
@@ -85,5 +81,5 @@ def change_password():
 
 
 if __name__ == '__main__':
-  set_database('postgresql://neondb_owner:jKnw6WuPC7IE@ep-square-frog-a5scr8j0.us-east-2.aws.neon.tech/neondb')
+  set_database(DATABASE_URL)
   app.run(host='0.0.0.0', port=8080)
