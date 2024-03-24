@@ -29,12 +29,12 @@ target_metadata = Base.metadata
 config.set_section_option(
     config.config_ini_section,
     'sqlalchemy.url',
-    DATABASE_URL
+    'postgresql://neondb_owner:k7A8paWfTlCV@ep-withered-mode-a5cy0v8h.us-east-2.aws.neon.tech/neondb'
 )
 
 
 def run_migrations_offline() -> None:
-    '''Run migrations in 'offline' mode.
+    """Run migrations in 'offline' mode.
 
     This configures the context with just a URL
     and not an Engine, though an Engine is acceptable
@@ -44,7 +44,7 @@ def run_migrations_offline() -> None:
     Calls to context.execute() here emit the given string to the
     script output.
 
-    '''
+    """
     url = config.get_main_option('sqlalchemy.url')
     context.configure(
         url=url,
@@ -58,12 +58,12 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    '''Run migrations in 'online' mode.
+    """Run migrations in 'online' mode.
 
     In this scenario we need to create an Engine
     and associate a connection with the context.
 
-    '''
+    """
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix='sqlalchemy.',

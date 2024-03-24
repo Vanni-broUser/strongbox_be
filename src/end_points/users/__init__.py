@@ -24,13 +24,13 @@ def register_user_(data):
 
   send_mail(
     user.mail,
-    f'''
+    f"""
       Ciao Bro!\n
       Per concludere la tua iscrizione crea una password con questo link:
       https://strongboxfe-hosting23232323.replit.app/password/{user.pass_token} 🚀\n\n
       Ci sentiamo presto,\n
       Vanni
-    ''',
+    """,
     'Registrazione su Strongbox'
   )
   return {
@@ -64,13 +64,13 @@ def ask_change_password_(data):
 
   send_mail(
     user.mail,
-    f'''
+    f"""
       Ciao Bro,\n
       Per procedere con il reset della password, clicca sul seguente link:
       https://strongboxfe-hosting23232323.replit.app/password/{user.pass_token}\n\n
       Ci sentiamo presto,\n
       Vanni
-    ''',
+    """,
     'Richiesta di Reset Password per Strongbox'
   )
   return {'status': 'ok', 'message': 'Mail per cambio password inviata'}, 200

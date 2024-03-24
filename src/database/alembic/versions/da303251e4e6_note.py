@@ -1,10 +1,10 @@
-'''Note
+"""Note
 
 Revision ID: da303251e4e6
 Revises:
 Create Date: 2024-03-23 22:25:02.698001
 
-'''
+"""
 from typing import Sequence, Union
 
 from alembic import op

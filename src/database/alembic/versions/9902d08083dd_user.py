@@ -1,10 +1,10 @@
-'''User
+"""User
 
 Revision ID: 9902d08083dd
 Revises: da303251e4e6
 Create Date: 2024-03-23 22:41:38.145380
 
-'''
+"""
 from typing import Sequence, Union
 
 from alembic import op
@@ -29,17 +29,17 @@ def upgrade() -> None:
                   sa.PrimaryKeyConstraint('id'))
 
   op.execute(
-    '''
-    INSERT INTO 'user' (mail, name, password, pass_token, created_at, updated_at)
+    """
+    INSERT INTO "user" (mail, name, password, pass_token, created_at, updated_at)
     VALUES ('colasanto.giovanni.inf@gmail.com', 'Vanni', null, null, now(), now())
-    '''
+    """
   )
   op.add_column('note', sa.Column('user_id', sa.Integer(), nullable=True))
   op.execute(
-    '''
+    """
     UPDATE note SET user_id =
-    (SELECT id FROM 'user' WHERE mail = 'colasanto.giovanni.inf@gmail.com')
-    '''
+    (SELECT id FROM "user" WHERE mail = 'colasanto.giovanni.inf@gmail.com')
+    """
   )
   op.alter_column('note', 'user_id', nullable=False)
   op.create_foreign_key(None, 'note', 'user', ['user_id'], ['id'])
