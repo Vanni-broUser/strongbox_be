@@ -29,7 +29,7 @@ target_metadata = Base.metadata
 config.set_section_option(
     config.config_ini_section,
     'sqlalchemy.url',
-    'postgresql://neondb_owner:k7A8paWfTlCV@ep-withered-mode-a5cy0v8h.us-east-2.aws.neon.tech/neondb'
+    DATABASE_URL
 )
 
 
