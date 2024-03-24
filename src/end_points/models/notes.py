@@ -1,10 +1,10 @@
 from datetime import datetime
 from sqlalchemy import func, and_
 
-from ..database import Session
-from ..database.schema import Note
+from ...database import Session
+from ...database.schema import Note
 
-from .decorators import error_catching_decorator
+from ..decorators import error_catching_decorator
 
 
 def notes_query(args) -> list[Note]:

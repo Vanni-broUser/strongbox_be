@@ -1,10 +1,10 @@
-from ..database.schema import *
-from ..database.operations import create, get_by_id, update, delete
+from ...database.schema import *
+from ...database.operations import create, get_by_id, update, delete
 
-from .decorators import error_catching_decorator
+from ..decorators import error_catching_decorator
 
 
-ALLOWED_CLASSES = ['Note']
+ALLOWED_CLASSES = ['Note', 'Tag']
 
 
 def allowed_classes_control(func):

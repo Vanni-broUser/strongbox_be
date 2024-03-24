@@ -36,6 +36,7 @@ class Note(BaseEntity):
   user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
 
   user = relationship('User', back_populates='note')
+  note_tag = relationship('NoteTag', back_populates='note')
 
 
 class User(BaseEntity):
@@ -44,5 +45,27 @@ class User(BaseEntity):
   password = Column(String)
   pass_token = Column(String)
   mail = Column(String, nullable=False)
+  name = Column(String, nullable=False)
 
+  tag = relationship('Tag', back_populates='user')
   note = relationship('Note', back_populates='user')
+
+
+class Tag(BaseEntity):
+  __tablename__ = 'tag'
+
+  name = Column(String, nullable=False)
+  user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+
+  user = relationship('User', back_populates='tag')
+  note_tag = relationship('NoteTag', back_populates='tag')
+
+
+class NoteTag(BaseEntity):
+  __tablename__ = 'note_tag'
+
+  tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False)
+  note_id = Column(Integer, ForeignKey('note.id'), nullable=False)
+
+  tag = relationship('Tag', back_populates='note_tag')
+  note = relationship('Note', back_populates='note_tag')
