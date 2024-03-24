@@ -27,7 +27,7 @@ def register_user_(data):
     f"""
       Ciao Bro!\n
       Per concludere la tua iscrizione crea una password con questo link:
-      https://strongboxfe-hosting23232323.replit.app/password/{user.pass_token} 🚀\n\n
+      https://strongboxfe-hosting23232323.replit.app/#/password/{user.pass_token} 🚀\n\n
       Ci sentiamo presto,\n
       Vanni
     """,
@@ -67,7 +67,7 @@ def ask_change_password_(data):
     f"""
       Ciao Bro,\n
       Per procedere con il reset della password, clicca sul seguente link:
-      https://strongboxfe-hosting23232323.replit.app/password/{user.pass_token}\n\n
+      https://strongboxfe-hosting23232323.replit.app/#/password/{user.pass_token}\n\n
       Ci sentiamo presto,\n
       Vanni
     """,
