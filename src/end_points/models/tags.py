@@ -4,6 +4,7 @@ from ...database.schema import Tag
 from ..decorators import error_catching_decorator
 
 
+# Sistemare query con user_id
 def tags_query(args) -> list[Tag]:
   with Session() as session:
     query = session.query(Tag)
