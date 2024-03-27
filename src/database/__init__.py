@@ -5,13 +5,12 @@ from sqlalchemy.orm import sessionmaker
 
 from .schema import Base
 
-
 engine = None
 
 
 def set_database(url):
   global engine
-  engine = create_engine(url)
+  engine = create_engine(url, pool_pre_ping=True)
   Base.metadata.create_all(engine)
   return engine
 
