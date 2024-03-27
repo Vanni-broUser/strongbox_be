@@ -4,19 +4,27 @@ from flask_cors import CORS
 from .costants import DATABASE_URL
 from .database import set_database
 
-from .end_points.models.crud import (create_instance_, update_instance_,
-                              delete_instance_, get_instance_by_id_)
+from .end_points.users import (
+  register_user_,
+  login_,
+  ask_change_password_,
+  change_password_
+)
+from .end_points.models.crud import (
+  create_instance_,
+  update_instance_,
+  delete_instance_,
+  get_instance_by_id_
+)
 from .end_points.models.tags import get_tags_
 from .end_points.models.notes import get_notes_
-from .end_points.users import (register_user_, login_, ask_change_password_,
-                               change_password_)
 
 app = Flask(__name__)
 CORS(app)
 session_data = {}
 
-# Generic CRUD
 
+# Generic CRUD
 
 @app.route('/instances/<string:class_name>', methods=['POST'])
 def create_instance(class_name):
@@ -47,7 +55,6 @@ def delete_instance(class_name, instance_id):
 
 # Notes
 
-
 @app.route('/notes', methods=['GET'])
 def get_notes():
   response, status_code = get_notes_(request.args)
@@ -56,7 +63,6 @@ def get_notes():
 
 # Tag
 
-
 @app.route('/tags', methods=['GET'])
 def get_tags():
   response, status_code = get_tags_(request.args)
@@ -64,7 +70,6 @@ def get_tags():
 
 
 # Users
-
 
 @app.route('/register-user', methods=['POST'])
 def register_user():

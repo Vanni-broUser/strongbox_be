@@ -4,7 +4,7 @@ from ...database.operations import create, get_by_id, update, delete
 from ..decorators import error_catching_decorator
 
 
-ALLOWED_CLASSES = ['Note', 'Tag']
+ALLOWED_CLASSES = ['Note', 'Tag', 'Document']
 
 
 def allowed_classes_control(func):

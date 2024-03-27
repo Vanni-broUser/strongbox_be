@@ -37,6 +37,7 @@ class Note(BaseEntity):
 
   user = relationship('User', back_populates='note')
   note_tag = relationship('NoteTag', back_populates='note')
+  note_document = relationship('NoteDocument', back_populates='note')
 
 
 class User(BaseEntity):
@@ -49,6 +50,7 @@ class User(BaseEntity):
 
   tag = relationship('Tag', back_populates='user')
   note = relationship('Note', back_populates='user')
+  document = relationship('Document', back_populates='user')
 
 
 class Tag(BaseEntity):
@@ -69,3 +71,24 @@ class NoteTag(BaseEntity):
 
   tag = relationship('Tag', back_populates='note_tag')
   note = relationship('Note', back_populates='note_tag')
+
+
+class Document(BaseEntity):
+  __tablename__ = 'document'
+
+  title = Column(String, nullable=False)
+  description = Column(Text)
+  user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+
+  user = relationship('User', back_populates='document')
+  note_document = relationship('NoteDocument', back_populates='document')
+
+
+class NoteDocument(BaseEntity):
+  __tablename__ = 'note_document'
+
+  note_id = Column(Integer, ForeignKey('note.id'), nullable=False)
+  document_id = Column(Integer, ForeignKey('document.id'), nullable=False)
+
+  note = relationship('Note', back_populates='note_document')
+  document = relationship('Document', back_populates='note_document')
